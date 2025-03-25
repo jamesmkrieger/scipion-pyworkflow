@@ -113,9 +113,11 @@ class Domain:
 
         # Catch any import exception, warn about it but continue.
         except ModuleNotFoundError as e:
+
+            logger.debug("Module %s not found: %s" %(name, e))
             if e.name == name:
                 # This is probably due to a priority package like pwchem not being installed
-                pass
+                logger.debug("Name is different!!: e.name='%s', name='%s'" %( e.name , name))
             else:
                 logger.warning("Plugin '%s' has import errors: %s. Maybe a missing dependency?. "
                                "Is it devel mode and need to be reinstalled?. Ignoring it and continuing." % (name, str(e)))
